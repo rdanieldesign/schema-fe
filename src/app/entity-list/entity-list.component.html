@@ -1,0 +1,7 @@
+<ul>
+  <li *ngFor="let entity of entities">
+    <a [routerLink]="['/entities', entity.id]">{{
+      entity.valueMap | entityLabel : primaryAttribute
+    }}</a>
+  </li>
+</ul>

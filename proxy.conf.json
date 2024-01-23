@@ -1,0 +1,6 @@
+{
+  "/schema/": {
+    "target": "http://212.1.214.83",
+    "secure": false
+  }
+}

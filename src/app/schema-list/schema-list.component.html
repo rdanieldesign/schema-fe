@@ -1,0 +1,5 @@
+<ul>
+  <li *ngFor="let schema of schemas">
+    <a [routerLink]="['/schemas', schema.id]">{{ schema.name }}</a>
+  </li>
+</ul>

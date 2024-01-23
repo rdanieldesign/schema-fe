@@ -1,0 +1,21 @@
+<h2>{{ entity?.valueMap | entityLabel : primaryAttribute }}</h2>
+(<a [routerLink]="['/schemas', entity?.schema?.id]">{{
+  entity?.schema?.name
+}}</a
+>)
+<h4>Attributes:</h4>
+<ul>
+  <ng-container *ngFor="let attribute of entity?.schema?.attributes">
+    <li *ngIf="attribute.isSecondary">
+      <label>{{ attribute.name }}:</label>
+      <ng-container *ngIf="attribute.optionEntityId; else readonlyAttribute">
+        <a [routerLink]="['/entities', entity?.id]">{{
+          entity?.valueMap | entityLabel : attribute
+        }}</a>
+      </ng-container>
+      <ng-template #readonlyAttribute>
+        {{ entity?.valueMap | entityLabel : attribute }}
+      </ng-template>
+    </li>
+  </ng-container>
+</ul>

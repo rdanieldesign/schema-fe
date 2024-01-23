@@ -1,0 +1,13 @@
+<h2>{{ schema?.name }}</h2>
+<h4>Attributes:</h4>
+<ul>
+  <li *ngFor="let attribute of schema?.attributes">
+    {{ attribute.name }}
+  </li>
+</ul>
+<button type="buttton" (click)="addAttribute()">Add Attribute</button>
+<h4>
+  <a [routerLink]="['/entities']" [queryParams]="{ schemaId: schema?.id }"
+    >Entities</a
+  >
+</h4>
