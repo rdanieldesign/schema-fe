@@ -1,0 +1,21 @@
+<form [formGroup]="attributeForm" (ngSubmit)="onSubmit()">
+  <label class="field"
+    >Attribute:
+    <select formControlName="attribute">
+      <option *ngFor="let a of attributes" [value]="a.id">{{ a.name }}</option>
+    </select>
+  </label>
+  <label class="field"
+    >Schema:
+    <select formControlName="schema">
+      <option *ngFor="let s of schemas" [value]="s.id">{{ s.name }}</option>
+    </select>
+  </label>
+  <label class="field"
+    >Primary: <input type="checkbox" formControlName="isPrimary"
+  /></label>
+  <label class="field"
+    >Secondary: <input type="checkbox" formControlName="isSecondary"
+  /></label>
+  <button type="submit">Submit</button>
+</form>

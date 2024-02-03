@@ -82,7 +82,6 @@ export class AddAttributeComponent {
   }
 
   onSubmit() {
-    console.log(this.attributeForm.value);
     this.http
       .post<string>(`/schema/attributes`, {
         ...this.attributeForm.value,

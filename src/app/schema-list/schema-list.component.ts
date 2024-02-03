@@ -2,7 +2,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ISchema, ISchemaListReponse } from '../schema/schema.interface';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-schema-list',
@@ -13,7 +13,7 @@ import { RouterModule } from '@angular/router';
 })
 export class SchemaListComponent {
   schemas: ISchema[] | undefined;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit() {
     this.http
@@ -21,5 +21,9 @@ export class SchemaListComponent {
       .subscribe((res) => {
         this.schemas = res.data;
       });
+  }
+
+  addSchema() {
+    this.router.navigate(['/schemas/add']);
   }
 }

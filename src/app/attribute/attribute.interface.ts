@@ -1,3 +1,4 @@
+import { IPageResponse } from '../shared/shared.interface';
 import {
   AttributeValidationTypes,
   AttributeValueTypes,
@@ -15,4 +16,7 @@ export interface ISchemaAttribute extends IAttribute {
   isPrimary: boolean;
   isSecondary: boolean;
   required: boolean;
+  schemaId: string;
 }
+
+export interface IAttributeResponse extends IPageResponse<IAttribute> {}

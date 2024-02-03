@@ -36,4 +36,10 @@ export class SchemaDetailComponent {
       queryParams: { schemaId: this.schema?.id },
     });
   }
+
+  associateAttribute() {
+    this.router.navigate(['/attributes/associate'], {
+      queryParams: { schemaId: this.schema?.id },
+    });
+  }
 }

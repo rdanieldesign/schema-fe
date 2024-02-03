@@ -1,0 +1,10 @@
+<select [ngModel]="selection" (ngModelChange)="onSelect($event)">
+  <option
+    *ngFor="
+      let o of optionSchemaId | entityOptions : optionPrimaryAttribute | async
+    "
+    [ngValue]="o"
+  >
+    {{ o.value }}
+  </option>
+</select>

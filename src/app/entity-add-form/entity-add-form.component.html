@@ -1,0 +1,43 @@
+<ng-container *ngIf="entityForm">
+  <form [formGroup]="entityForm">
+    <ng-container
+      *ngFor="let attribute of schema?.attributes | attributeFilter"
+    >
+      <label>
+        {{ attribute.name }}:
+        <ng-container [ngSwitch]="attribute.valueType">
+          <ng-container *ngSwitchCase="attributeValueTypes.SINGLE_SELECT">
+            <app-entity-form-select
+              [formControlName]="attribute.id"
+              [optionSchemaId]="attribute.optionEntityId"
+              [optionPrimaryAttribute]="
+                schemaPrimaryAttributeMap[attribute.optionEntityId]
+              "
+            ></app-entity-form-select>
+          </ng-container>
+          <ng-container *ngSwitchCase="attributeValueTypes.MULTI_SELECT">
+            <app-entity-form-multi-select
+              [formControlName]="attribute.id"
+              [optionSchemaId]="attribute.optionEntityId"
+              [optionPrimaryAttribute]="
+                schemaPrimaryAttributeMap[attribute.optionEntityId]
+              "
+            ></app-entity-form-multi-select
+          ></ng-container>
+          <ng-container *ngSwitchCase="attributeValueTypes.NUMBER">
+            <app-entity-form-text-input
+              [formControlName]="attribute.id"
+              type="number"
+            ></app-entity-form-text-input>
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            <app-entity-form-text-input
+              [formControlName]="attribute.id"
+            ></app-entity-form-text-input>
+          </ng-container>
+        </ng-container>
+      </label>
+    </ng-container>
+    <button type="button" (click)="onSubmit()">Submit</button>
+  </form>
+</ng-container>

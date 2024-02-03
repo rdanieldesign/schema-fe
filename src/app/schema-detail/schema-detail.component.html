@@ -5,9 +5,11 @@
     {{ attribute.name }}
   </li>
 </ul>
-<button type="buttton" (click)="addAttribute()">Add Attribute</button>
+<button type="button" (click)="addAttribute()">Add Attribute</button>
+OR
+<button type="button" (click)="associateAttribute()">
+  Associate Existing Attribute
+</button>
 <h4>
-  <a [routerLink]="['/entities']" [queryParams]="{ schemaId: schema?.id }"
-    >Entities</a
-  >
+  <a [routerLink]="['entities']">Entities</a>
 </h4>

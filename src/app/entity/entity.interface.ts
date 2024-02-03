@@ -14,7 +14,7 @@ export interface IEntityValueMap {
 
 export interface IEntityValue {
   id?: string;
-  value?: string;
+  value: string;
 }
 
 export interface IEntityDetail extends IEntity {
@@ -22,3 +22,8 @@ export interface IEntityDetail extends IEntity {
 }
 
 export interface IEntityListReponse extends IPageResponse<IEntity> {}
+
+export interface IEntityUpdateResponse {
+  message: string;
+  valueMap: IEntityValueMap;
+}

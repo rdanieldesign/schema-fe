@@ -1,6 +1,6 @@
 import { HttpClient, HttpClientModule, HttpParams } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { IEntity, IEntityListReponse } from '../entity/entity.interface';
 import { forkJoin, map } from 'rxjs';
 import { ISchema, ISchemaDetail } from '../schema/schema.interface';
@@ -20,10 +20,14 @@ export class EntityListComponent {
   schema: ISchema | undefined;
   primaryAttribute: ISchemaAttribute | undefined;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) {}
+  constructor(
+    private http: HttpClient,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    const schemaId = this.route.snapshot.queryParams['schemaId'];
+    const schemaId = this.route.snapshot.paramMap.get('schemaId') as string;
     const params = { params: new HttpParams().set('schemaId', schemaId) };
     forkJoin([
       this.http
@@ -37,5 +41,9 @@ export class EntityListComponent {
         schema.attributes.find((attribute) => attribute.isPrimary) ||
         schema.attributes[0];
     });
+  }
+
+  addEntity() {
+    this.router.navigate(['add'], { relativeTo: this.route });
   }
 }

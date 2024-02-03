@@ -1,0 +1,14 @@
+<ng-container
+  *ngIf="attribute.optionEntityId && routePrefix; else readonlyAttribute"
+>
+  <ng-container *ngFor="let segment of displaySegments; let i = index">
+    <a [routerLink]="[routePrefix, segment.id]">{{ segment.label }}</a>
+    <ng-container *ngIf="i !== displaySegments.length - 1">, </ng-container>
+  </ng-container>
+</ng-container>
+<ng-template #readonlyAttribute>
+  <ng-container *ngFor="let segment of displaySegments; let i = index">
+    {{ segment.label }}
+    <ng-container *ngIf="i !== displaySegments.length - 1"></ng-container>
+  </ng-container>
+</ng-template>

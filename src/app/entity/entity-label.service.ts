@@ -13,20 +13,28 @@ export class EntityLabelService {
     values: IEntityValue[] | undefined,
     attribute: ISchemaAttribute
   ): string | undefined {
+    return this.getLabelIdSegments(values, attribute).reduce(
+      (label, segment, index) => {
+        if (!segment?.label) {
+          return label;
+        }
+        if (index !== 0) {
+          label += ', ';
+        }
+        return label + segment?.label;
+      },
+      ''
+    );
+  }
+
+  getLabelIdSegments(
+    values: IEntityValue[] | undefined,
+    attribute: ISchemaAttribute
+  ): Array<{ label: string; id?: string }> {
     switch (attribute.valueType) {
       case AttributeValueTypes.SINGLE_SELECT:
       case AttributeValueTypes.MULTI_SELECT: {
-        return values
-          ?.map((v) => v.value)
-          .reduce((label, value, index) => {
-            if (!value) {
-              return label;
-            }
-            if (index !== 0) {
-              label += ', ';
-            }
-            return label + value;
-          }, '');
+        return values?.map((val) => ({ label: val.value, id: val.id })) || [];
       }
       case AttributeValueTypes.NUMBER:
       case AttributeValueTypes.HTML:
@@ -35,7 +43,7 @@ export class EntityLabelService {
       case AttributeValueTypes.TEXT:
       case AttributeValueTypes.TEXT_LONG:
       default:
-        return values?.[0]?.value;
+        return values?.map((val) => ({ label: val.value })) || [];
     }
   }
 }

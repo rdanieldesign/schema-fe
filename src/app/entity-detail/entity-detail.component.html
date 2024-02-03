@@ -4,18 +4,31 @@
 }}</a
 >)
 <h4>Attributes:</h4>
-<ul>
-  <ng-container *ngFor="let attribute of entity?.schema?.attributes">
-    <li *ngIf="attribute.isSecondary">
-      <label>{{ attribute.name }}:</label>
-      <ng-container *ngIf="attribute.optionEntityId; else readonlyAttribute">
-        <a [routerLink]="['/entities', entity?.id]">{{
-          entity?.valueMap | entityLabel : attribute
-        }}</a>
-      </ng-container>
-      <ng-template #readonlyAttribute>
-        {{ entity?.valueMap | entityLabel : attribute }}
-      </ng-template>
-    </li>
-  </ng-container>
-</ul>
+<ng-container *ngIf="editMode; else readonlyMode">
+  <app-entity-add-form
+    *ngIf="entity?.schema && entity?.valueMap"
+    [schema]="entity?.schema"
+    [valueMap]="entity?.valueMap"
+    (submit)="onSubmit($event)"
+  ></app-entity-add-form>
+</ng-container>
+<ng-template #readonlyMode>
+  <ul>
+    <ng-container
+      *ngFor="
+        let attribute of entity?.schema?.attributes | attributeFilter : false
+      "
+    >
+      <li>
+        <label>{{ attribute.name }}:</label>
+
+        <app-entity-label
+          [attribute]="attribute"
+          [values]="entity?.valueMap?.[attribute.id]"
+          routePrefix="../"
+        ></app-entity-label>
+      </li>
+    </ng-container>
+  </ul>
+</ng-template>
+<button *ngIf="!editMode" type="button" (click)="edit()">Edit Entity</button>

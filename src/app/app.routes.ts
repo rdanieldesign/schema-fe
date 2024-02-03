@@ -4,6 +4,9 @@ import { SchemaDetailComponent } from './schema-detail/schema-detail.component';
 import { EntityListComponent } from './entity-list/entity-list.component';
 import { EntityDetailComponent } from './entity-detail/entity-detail.component';
 import { AddAttributeComponent } from './add-attribute/add-attribute.component';
+import { EntityAddComponent } from './entity-add/entity-add.component';
+import { SchemaAddComponent } from './schema-add/schema-add.component';
+import { AttributeAssociateComponent } from './attribute-associate/attribute-associate.component';
 
 export const routes: Routes = [
   {
@@ -14,20 +17,23 @@ export const routes: Routes = [
         component: SchemaListComponent,
       },
       {
+        path: 'add',
+        component: SchemaAddComponent,
+      },
+      {
         path: ':schemaId',
         component: SchemaDetailComponent,
       },
-    ],
-  },
-  {
-    path: 'entities',
-    children: [
       {
-        path: '',
+        path: ':schemaId/entities',
         component: EntityListComponent,
       },
       {
-        path: ':entityId',
+        path: ':schemaId/entities/add',
+        component: EntityAddComponent,
+      },
+      {
+        path: ':schemaId/entities/:entityId',
         component: EntityDetailComponent,
       },
     ],
@@ -38,6 +44,10 @@ export const routes: Routes = [
       {
         path: 'add',
         component: AddAttributeComponent,
+      },
+      {
+        path: 'associate',
+        component: AttributeAssociateComponent,
       },
     ],
   },
